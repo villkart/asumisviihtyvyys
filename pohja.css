@@ -1,0 +1,118 @@
+
+* {
+    box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+/* Header/logo Title */
+header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+}
+
+/* Style the top navigation bar */
+nav {
+    display: flex;
+    background-color: #333;
+    justify-content: center;
+    align-content: center;
+}
+
+/* Style the navigation bar links */
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Change color on hover */
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+main {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 5% 0;
+}
+footer {
+    position: static;
+    background-color: #333333;
+    width: 100%;
+    bottom: 0px;
+    padding: 4px;
+
+}
+footer p {
+    color: gray;
+    padding-left: 2%;
+}
+
+aside {
+    flex: 30%;
+    padding: 20px;
+
+}
+aside a {
+    text-decoration: none;
+    color: black;
+}
+aside a:hover {
+    color: #1abc9c;
+}
+section {
+    flex: 70%;
+    padding: 20px;
+}
+article {
+   width: 50%;
+}
+article p {
+    padding: 5px 5px 5px 0;
+}
+figure {
+
+    margin: 0;
+    padding: 0;
+}
+figure img {
+    height: 200px;
+    width: auto;
+    border-left-style: solid;
+    border-left-width: 10px;
+    border-color: #1abc9c;
+}
+figure img:hover {
+    opacity: 0.9;
+}
+
+aside ul {
+    border: #1abc9c;
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+@media screen and (max-width: 768px) {
+    aside, nav, main {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    section {
+        flex: 100%;
+    }
+    article {
+        width: 100%;
+    }
+    aside {
+        order: 1;
+    }
+}

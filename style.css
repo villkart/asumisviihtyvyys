@@ -12,16 +12,22 @@ body {
 
 /* Header/logo Title */
 header {
-    padding: 60px;
+    padding: 6px;
     text-align: center;
     background: #1abc9c;
-    color: white;
 }
+
+.header {
+    position: relative;
+}
+
 
 h1 {
     font-family: 'Gabriela';
     color: black;
 }
+
+
 
 /* Style the top navigation bar */
 nav {
@@ -29,6 +35,13 @@ nav {
     background-color: #333;
     justify-content: center;
     align-content: center;
+    font-family: 'Lato', sans-serif;
+
+}
+
+li {
+    font-family: 'Acme';
+    font-size: 19px;
 }
 
 /* Style the navigation bar links */

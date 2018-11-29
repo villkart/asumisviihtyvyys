@@ -17,15 +17,9 @@ body {
 
 /* Header/logo Title */
 header {
-    padding: 0px;
     text-align: center;
-    background: #1abc9c;
+    background: #1ae2c1;
 }
-
-.header {
-    position: relative;
-}
-
 
 h1 {
     font-family: 'Gabriela';
@@ -45,7 +39,10 @@ nav {
 }
 
 img {
-    width: 200px;
+    width: 270px;
+    height: 220px;
+    display: inline-block;
+
 }
 
 li {
@@ -71,7 +68,7 @@ main {
     flex-direction: row;
     margin: 0 0 5% 0;
 }
-footer {
+/*footer {
     position: static;
     background-color: #333333;
     width: 100%;
@@ -82,7 +79,7 @@ footer {
 footer p {
     color: gray;
     padding-left: 2%;
-}
+}*/
 
 aside {
     flex: 30%;
@@ -99,9 +96,10 @@ aside a:hover {
 section {
     flex: 70%;
     padding: 5px;
-    background-color: black;
+    background-color: #333;
     border-radius: 20px;
     margin-top: 10px;
+    margin-right: 10px;
 }
 
 

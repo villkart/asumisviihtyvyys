@@ -4,8 +4,10 @@
 }
 
 #map {
-    width: 800px;
     height: 600px;
+    width: 100%;
+    border-radius: 40px;
+    border: 2px teal;
 }
 body {
     font-family: 'Lato', sans-serif;
@@ -24,10 +26,6 @@ header {
     position: relative;
 }
 
-img {
-    width: 300px;
-}
-
 
 h1 {
     font-family: 'Gabriela';
@@ -44,6 +42,10 @@ nav {
     align-content: center;
     font-family: 'Lato', sans-serif;
 
+}
+
+img {
+    width: 200px;
 }
 
 li {
@@ -96,29 +98,12 @@ aside a:hover {
 }
 section {
     flex: 70%;
-    padding: 20px;
+    padding: 5px;
+    background-color: black;
+    border-radius: 20px;
+    margin-top: 10px;
 }
-article {
-    width: 50%;
-}
-article p {
-    padding: 5px 5px 5px 0;
-}
-figure {
 
-    margin: 0;
-    padding: 0;
-}
-figure img {
-    height: 200px;
-    width: auto;
-    border-left-style: solid;
-    border-left-width: 10px;
-    border-color: #1abc9c;
-}
-figure img:hover {
-    opacity: 0.9;
-}
 
 aside ul {
     border: #1abc9c;

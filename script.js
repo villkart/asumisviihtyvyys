@@ -1,51 +1,75 @@
-
 'use strict';
-const ul = document.querySelector('#results');
-const bot = document.querySelector('.bot');
-bot.style.display = 'none';
-const res = document.querySelector('#res');
-document.querySelector('#nappi').addEventListener('click', function() {
-  const haku = document.querySelector('#hakukentta').value;
-  fetch('http://api.tvmaze.com/search/shows?q=' + haku).then(function(vastaus) {
+const aside = document.querySelector('aside');
+//let json = require('kuntarajat-ok.geojsonjson'); //(with path)
+//let json = $.getJSON("kuntarajat-ok.json");
+//let data = eval("(" +json.responseText + ")");
+
+function readJSON(path) {
+  fetch(path).then(function(vastaus) {
     return vastaus.json();
   }).then(function(json) {
-    showlist(json);
+    console.log(json.features);
+    let d = json.features;
+    return d;
   }).catch(function(error) {
     console.log(error);
   });
-});
+}
 
-document.addEventListener('keyup', function(event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    document.querySelector('#nappi').click();
+let data = readJSON('kuntarajat-ok.json');
+console.log(data);
+
+function tausta() {
+  if (document.getElementById('nappi1').checked === true) {
+    aside.setAttribute('style', 'background-color: blue;');
   }
-});
-
-function showlist(lista) {
-  ul.innerHTML = '';
-  for (let i = 0; i < lista.length; i++) {
-    res.style.display = 'flex';
-    bot.style.display = 'inline';
-
-    ul.innerHTML += `<li id="lis">`;
-    if (lista[i].show.image != null) {
-      console.log(lista[i].show.image.medium);
-      ul.innerHTML += `<img id="kuva" src="${lista[i].show.image.medium}">`;
-    }
-    ul.innerHTML += `<ul style="display: inline">`;
-    for (let e = 0; e < lista[i].show.genres.length; e++) {
-      console.log(lista[i].show.genres[e]);
-      ul.innerHTML += `<li style='list-style: none; font-weight: bold'>${lista[i].show.genres[e]}</li>`;
-    }
-    ul.innerHTML += `</ul>`;
-    ul.innerHTML += `<h2>${lista[i].show.name}</h2>`;
-    ul.innerHTML += `<p>${lista[i].show.summary}</p>`;
-    if (lista[i].show.officialSite != null) {
-      console.log(lista[i].show.officialSite);
-      ul.innerHTML += `<a style="border: 2px solid red;border-radius: 4px;color: black;background-color: darkred; text-decoration: none; " href="${lista[i].show.officialSite}">Official&nbsp;site</a>`;
-    }
-    ul.innerHTML += `</li>`;
+  else {
+    aside.setAttribute('style', 'background-color: lightblue;');
   }
+}
+
+let mymap = L.map('map').setView([60.230, 24.897], 13);
+L.tileLayer(
+    'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+    {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox.streets',
+    }).addTo(mymap);
+L.marker([60.230, 24.897]).
+    addTo(mymap).
+    bindPopup('<b>Hello world!</b><br />I am a popup.').
+    openPopup();
+L.circle([64.230, 28.897], 50000,
+    {color: 'red', fillColor: '#f03', fillOpacity: 0.2}).
+    addTo(mymap).
+    bindPopup('I am a circle.');
+L.polygon(
+    [[60.509, -0.08], [63.509, -0.06], [51.51, -13.047], [70.51, -13.047]]).
+    addTo(mymap).
+    bindPopup('I am a polygon.');
+let popup = L.popup();
+
+function onMapClick(e) {
+
+  popup.setLatLng(e.latlng).
+      setContent('You clicked the map at ' + e.latlng.toString()).
+      openOn(mymap);
+
+  L.circle(5000,
+      {radius: 1000, color: 'red', fillColor: '#f03', fillOpacity: 0.2}).
+      setLatLng(e.latlng).
+      addTo(mymap).
+      bindPopup('umpura');
 
 }
+
+mymap.on('click', onMapClick);
+
+//for(let i=0;i<data.features;i++){
+//console.log(data.features[i]);
+//}
+
+console.log(data[3].coordinates[1]);

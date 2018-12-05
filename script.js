@@ -5,59 +5,120 @@ let footer = document.querySelector('footer');
 //let json = $.getJSON("kuntarajat-ok.json");
 //let data = eval("(" +json.responseText + ")");
 
-function readJSON(path) {
-  fetch(path).then(function(vastaus) {
+function readJSON(path, settings = null) {
+  console.log(settings);
+  fetch(path, settings).then(function(vastaus) {
     return vastaus.json();
   }).then(function(json) {
     //console.log(json.features);
-    const d = json.features;
-    valmis(d);
+    if (json.features != null) {
+      const d = json.features;
+      valmis1(d);
+    }
+    else if (json.variables != null) {
+      //console.log(json.variables);
+      const d = json.variables;
+      valmis2(d);
+    }
   }).catch(function(error) {
     console.log(error);
   });
 }
 
-const data = readJSON('kuntarajat-ok.json');
+const data1 = readJSON('kuntarajat-ok.json');
 
+const data = {
+  'query': [
+    {
+      'code': 'Alue 2018',
+      'selection': {'filter': 'item', 'values': ['SSS']},
+    }], 'response': {'format': 'json'},
+};
 
+const asetukset = {
+  method: 'POST', // *GET, POST, PUT, DELETE, etc.
+  mode: 'no-cors', // no-cors, cors, *same-origin
+  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  credentials: 'same-origin', // include, *same-origin, omit
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    // "Content-Type": "application/x-www-form-urlencoded",
+  },
+  redirect: 'follow', // manual, *follow, error
+  referrer: 'no-referrer', // no-referrer, *client
+  body: JSON.stringify(data), // body data type must match "Content-Type" header
+};
 
+const data2 = readJSON(
+    'https://pxnet2.stat.fi/PXWeb/api/v1/fi/Kuntien_avainluvut/2018/kuntien_avainluvut_2018_viimeisin.px',
+    asetukset);
 
-function valmis(data) {
+function valmis1(data1) {
   let piste = [];
-  let muoto = [];
+
   let v = [];
   //piste += L.GeoJSON.coordsToLatLng(data[0].geometry.coordinates[0][0]);
   //console.log(piste);
-console.log(data);
+  console.log(data1);
   //console.log(`${data[0].geometry.coordinates[0][0]}`);
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data1.length; i++) {
     v = [];
+    let muoto = [];
     //console.log(piste);
-try{
-    for (let u = 0; u < data[i].geometry.coordinates[0].length; u++) {
-      //console.log(piste);
-      let m = [];
-      piste = L.GeoJSON.coordsToLatLng(data[i].geometry.coordinates[0][u]);
-      muoto.push(piste);
-      //console.log(muoto);
-      //console.log(muoto[u].lng);
-      m.push(muoto[u].lat, muoto[u].lng);
-      //console.log(m);
-      v.push(m);
+    try {
+      for (let u = 0; u < data1[i].geometry.coordinates[0].length; u++) {
 
-    //console.log(data[7].geometry.geometries[0].length);
+        let m = [];
+        piste = L.GeoJSON.coordsToLatLng(data1[i].geometry.coordinates[0][u]);
+        muoto.push(piste);
+        m.push(muoto[u].lat, muoto[u].lng);
+        //console.log(m);
+        v.push(m);
+      }
 
-    //console.log(`${data[i].geometry.coordinates}`);
-    //console.log(data[0].properties.name);
-    console.log(v);
-    //console.log(data[i].geometry.coordinates[0][0].length);
-    L.polygon(
-        v
-    ).
-        addTo(mymap).
-        bindPopup(`${data[0].geometry.name}`);
-    }}catch(e){console.log('saatana')}
+      L.polygon(
+          v,
+      ).
+          addTo(mymap).
+          bindPopup(`${data1[i].properties.name}`);
+
+    } catch (e) {
+
+      for (let e = 0; e < data1[i].geometry.geometries.length; e++) {
+        muoto = [];
+        v = [];
+        for (let u = 0; u <
+        data1[i].geometry.geometries[e].coordinates[0].length; u++) {
+          let m = [];
+          piste = L.GeoJSON.coordsToLatLng(
+              data1[i].geometry.geometries[e].coordinates[0][u]);
+          muoto.push(piste);
+          //console.log(muoto);
+          //console.log(muoto[u].lng);
+          m.push(muoto[u].lat, muoto[u].lng);
+          //console.log(m);
+          v.push(m);
+        }
+
+        L.polygon(
+            v,
+        ).
+            addTo(mymap).
+            bindPopup(`${data1[i].properties.name}`);
+
+      }
+    }
+
   }
+}
+
+function valmis2(data2) {
+  console.log(data2);
+
+  console.log(
+      `${data2[0].valueTexts[17]}, ${data2[0].values[17].value}, ${data2[1].valueTexts[17]}: ${data2[1].values[17]}`);
+  console.log(
+      `${data2[0].valueTexts[17]}, ${data2[0].values[17]}, ${data2[1].valueTexts[17]}: ${data2[1].values[17]['012']}`);
 }
 
 /*function tausta() {
@@ -98,8 +159,6 @@ L.polygon(
     addTo(mymap).
     bindPopup('I am a polygon.');
 
-
-
 /*function onMapClick(e) {
 
   popup.setLatLng(e.latlng).
@@ -122,3 +181,4 @@ mymap.on('click', onMapClick);
 
 //
 //features.geometry.coordinates
+

@@ -9,7 +9,7 @@
 
 
 body {
-
+    font-family: Lato;
     margin: 0;
     padding: 0;
 }
@@ -45,7 +45,7 @@ img {
 }
 
 #hakukentta::placeholder {
-    color: white;
+    color: grey;
 }
 
 
@@ -151,12 +151,21 @@ aside ul {
     border-left-width: 5px;
     border-left-style: solid;
 }
+@media screen and (max-width: 1268px) {
+    #over_map {
+        width: 30%;
+    }
+    #over_map img {
+        width: 60%;
+    }
+
+}
 @media screen and (max-width: 768px) {
     #over_map {
         width: 100%;
     }
     #over_map img {
-        width: 40%;
+        display: none;
     }
 
 }

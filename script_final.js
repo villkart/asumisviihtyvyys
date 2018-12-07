@@ -1,6 +1,5 @@
 'use strict';
 
-//const palkki = document.querySelector('#hakupalkki');
 const vastaus = document.querySelector('#vastaus');
 const data_1 = {
   'query': [
@@ -345,16 +344,17 @@ const asetukset = {
   method: 'POST', // *GET, POST, PUT, DELETE, etc.
   body: JSON.stringify(data_1), // body data type must match "Content-Type" header
 };
+let paikat = [];
 
 document.querySelector('#nappi').addEventListener('click', function() {
   const haku = document.querySelector('#hakukentta').value;
-
-  console.log("moi");
+  console.log('moi');
   console.log(haku);
-  getData(haku);
-  
-});
+  console.log(isoAlku(haku));
+  getData(isoAlku(haku));
 
+});
+//autocomplete(document.querySelector('#hakukentta'), paikat);
 document.addEventListener('keyup', function(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
@@ -366,8 +366,7 @@ function readJSON(path) {
   fetch(path).then(function(vastaus) {
     return vastaus.json();
   }).then(function(json) {
-    const d = json.features;
-    valmis(d);
+    valmis(json.features);
   }).catch(function(error) {
     console.log(error);
   });
@@ -375,17 +374,16 @@ function readJSON(path) {
 
 const data = readJSON('kuntarajat-ok.json');
 
-
 function valmis(data) {
   let piste = [];
   let v = [];
 
-
-
   for (let i = 0; i < data.length; i++) {
+
     v = [];
     let muoto = [];
     let nimi = data[i].properties.name;
+    paikat.push(nimi);
     try {
       for (let u = 0; u < data[i].geometry.coordinates[0].length; u++) {
 
@@ -396,10 +394,7 @@ function valmis(data) {
         v.push(m);
       }
 
-
-      let poly = L.polygon(
-          v
-      );
+      let poly = L.polygon(v);
       poly.addTo(mymap).
           //  bindPopup(`${data[i].properties.name}`);
           bindPopup(function() {
@@ -407,26 +402,23 @@ function valmis(data) {
             return nimi;
           });
 
-
-
-
     } catch (e) {
 
       for (let e = 0; e < data[i].geometry.geometries.length; e++) {
         muoto = [];
         v = [];
-        for (let u = 0; u < data[i].geometry.geometries[e].coordinates[0].length; u++) {
+        for (let u = 0; u <
+        data[i].geometry.geometries[e].coordinates[0].length; u++) {
           let m = [];
-          piste = L.GeoJSON.coordsToLatLng(data[i].geometry.geometries[e].coordinates[0][u]);
+          piste = L.GeoJSON.coordsToLatLng(
+              data[i].geometry.geometries[e].coordinates[0][u]);
           muoto.push(piste);
           m.push(muoto[u].lat, muoto[u].lng);
           //console.log(m);
           v.push(m);
         }
 
-        let poly = L.polygon(
-            v
-        );
+        let poly = L.polygon(v);
         poly.addTo(mymap).
             //  bindPopup(`${data[i].properties.name}`);
             bindPopup(function() {
@@ -434,16 +426,12 @@ function valmis(data) {
               return nimi;
             });
 
-
       }
     }
-
-
 
   }
 
 }
-
 
 let mymap = L.map('map').setView([65.130, 24.897], 5);
 L.tileLayer(
@@ -457,17 +445,8 @@ L.tileLayer(
     }).addTo(mymap);
 
 
-function klikkaus(e) {
 
-  console.log(e.target._popup);
-}
-
-
-
-
-
-function getData(nimi){
-
+function getData(nimi) {
 
   const path = 'https://pxnet2.stat.fi:443/PXWeb/api/v1/fi/Kuntien_avainluvut/2018/kuntien_avainluvut_2018_viimeisin.px';
   let kunta_code;
@@ -484,9 +463,10 @@ function getData(nimi){
     return vastaus.json();
   }).then(function(json) {
     kunta_id = +(json.variables[0].valueTexts.indexOf(nimi));
+    //console.log(json.variables[0].valueTexts);
     kunta_code = json.variables[0].values[kunta_id];
     console.log(kunta_id);
-  }).then(fetch(path, asetukset).then(function(vastaus) {
+  }).then(fetch(path, asetukset).then(function(vastaus){
     return vastaus.json();
   }).then(function(json) {
     let i_asukasluku = kunta_id * 7 - 7;
@@ -521,19 +501,19 @@ function getData(nimi){
     vastaus.innerHTML += `<li>Korkeakoulutus: ${koulutus}% väestöstä</li>`;
     vastaus.innerHTML += `<li>Työttömyys: ${tyottomyys}%</li>`;
     vastaus.innerHTML += `<li>Eläkeläiset: ${elakelaiset}%</li>`;
-    vastaus.innerHTML += `<li>Huoltosuhde: ${huoltosuhde}</li>`;
+    vastaus.innerHTML += `<li>Huoltosuhde: ${huoltosuhde}%</li>`;
     vastaus.innerHTML += `<ul>`;
 
   }).catch(function(error) {
     console.log(error);
-  })
-
-  .catch(function(error) {
+  }).catch(function(error) {
     console.log(error);
   }));
 }
 
-
+function isoAlku(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 
 

@@ -347,7 +347,17 @@ const asetukset = {
 let paikat = [];
 
 document.querySelector('#nappi').addEventListener('click', function() {
-  const haku = document.querySelector('#hakukentta').value;
+  let haku = document.querySelector('#hakukentta').value;
+  if ('Nastola'.includes(isoAlku(haku))) {
+    haku = 'Lahti';
+  }
+  for (let i = 0, n = 0; i < paikat.length; i++) {
+    if (paikat[i].includes(isoAlku(haku))) {
+      haku = paikat[i];
+      console.log(haku);
+      n = 1;
+    }
+  }
   console.log('moi');
   console.log(haku);
   console.log(isoAlku(haku));
@@ -398,6 +408,9 @@ function valmis(data) {
       poly.addTo(mymap).
           //  bindPopup(`${data[i].properties.name}`);
           bindPopup(function() {
+            if('Nastola'.includes(nimi)) {
+              nimi = 'Lahti';
+            }
             getData(nimi);
             return nimi;
           });
@@ -422,6 +435,9 @@ function valmis(data) {
         poly.addTo(mymap).
             //  bindPopup(`${data[i].properties.name}`);
             bindPopup(function() {
+              if('Nastola'.includes(nimi)) {
+                nimi = 'Lahti';
+              }
               getData(nimi);
               return nimi;
             });
@@ -444,8 +460,6 @@ L.tileLayer(
       id: 'mapbox.streets',
     }).addTo(mymap);
 
-
-
 function getData(nimi) {
 
   const path = 'https://pxnet2.stat.fi:443/PXWeb/api/v1/fi/Kuntien_avainluvut/2018/kuntien_avainluvut_2018_viimeisin.px';
@@ -466,7 +480,7 @@ function getData(nimi) {
     //console.log(json.variables[0].valueTexts);
     kunta_code = json.variables[0].values[kunta_id];
     console.log(kunta_id);
-  }).then(fetch(path, asetukset).then(function(vastaus){
+  }).then(fetch(path, asetukset).then(function(vastaus) {
     return vastaus.json();
   }).then(function(json) {
     let i_asukasluku = kunta_id * 7 - 7;

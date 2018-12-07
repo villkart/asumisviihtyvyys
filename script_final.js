@@ -351,11 +351,11 @@ document.querySelector('#nappi').addEventListener('click', function() {
   if ('Nastola'.includes(isoAlku(haku))) {
     haku = 'Lahti';
   }
-  for (let i = 0, n = 0; i < paikat.length; i++) {
+  for (let i = 0; i < paikat.length; i++) {
     if (paikat[i].includes(isoAlku(haku))) {
       haku = paikat[i];
       console.log(haku);
-      n = 1;
+      break;
     }
   }
   console.log('moi');
@@ -509,13 +509,13 @@ function getData(nimi) {
 
     vastaus.innerHTML = `<h2>${nimi}</h2>`;
     vastaus.innerHTML += `<ul>`;
-    vastaus.innerHTML += `<li>Väkiluku, 2017: ${asukasluku}</li>`;
-    vastaus.innerHTML += `<li>Väkiluvun muutos edellisestä vuodesta, 2017: ${vakimuutos}%</li>`;
+    vastaus.innerHTML += `<li>Väkiluku: ${asukasluku} (2017)</li>`;
+    vastaus.innerHTML += `<li>Väkiluvun muutos edellisestä vuodesta: ${vakimuutos}% (2017)</li>`;
     vastaus.innerHTML += `<li>Muuttovoitto / tappio: ${muutto} hlö vuoden 2017 aikana</li>`;
-    vastaus.innerHTML += `<li>Korkeakoulutus: ${koulutus}% väestöstä</li>`;
-    vastaus.innerHTML += `<li>Työttömyys: ${tyottomyys}%</li>`;
-    vastaus.innerHTML += `<li>Eläkeläiset: ${elakelaiset}%</li>`;
-    vastaus.innerHTML += `<li>Huoltosuhde: ${huoltosuhde}%</li>`;
+    vastaus.innerHTML += `<li>Korkeakoulutettuja ${koulutus}% väestöstä</li>`;
+    vastaus.innerHTML += `<li>Työttömiä ${tyottomyys}% työkykyisestä väestöstä</li>`;
+    vastaus.innerHTML += `<li>Eläkeläisiä ${elakelaiset}% väestöstä</li>`;
+    vastaus.innerHTML += `<li>Huoltosuhde: ${huoltosuhde}% (työlliset/työttömät)</li>`;
     vastaus.innerHTML += `<ul>`;
 
   }).catch(function(error) {

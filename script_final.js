@@ -408,7 +408,7 @@ function valmis(data) {
       poly.addTo(mymap).
           //  bindPopup(`${data[i].properties.name}`);
           bindPopup(function() {
-            if('Nastola'.includes(nimi)) {
+            if ('Nastola'.includes(nimi)) {
               nimi = 'Lahti';
             }
             getData(nimi);
@@ -435,7 +435,7 @@ function valmis(data) {
         poly.addTo(mymap).
             //  bindPopup(`${data[i].properties.name}`);
             bindPopup(function() {
-              if('Nastola'.includes(nimi)) {
+              if ('Nastola'.includes(nimi)) {
                 nimi = 'Lahti';
               }
               getData(nimi);
@@ -499,6 +499,8 @@ function getData(nimi) {
     elakelaiset = json.data[i_elakelaiset].values[0];
     huoltosuhde = json.data[i_huoltosuhde].values[0];
 
+
+
     console.log('asukasluku: ' + asukasluku);
     console.log('väkiluvun muutos: ' + vakimuutos);
     console.log('Muuttovoitto / tappio: ' + muutto);
@@ -511,7 +513,16 @@ function getData(nimi) {
     vastaus.innerHTML += `<ul>`;
     vastaus.innerHTML += `<li>Väkiluku: ${asukasluku} (2017)</li>`;
     vastaus.innerHTML += `<li>Väkiluvun muutos edellisestä vuodesta: ${vakimuutos}% (2017)</li>`;
-    vastaus.innerHTML += `<li>Muuttovoitto / tappio: ${muutto} hlö vuoden 2017 aikana</li>`;
+
+    if (muutto < 0) {
+      muutto = -muutto;
+      vastaus.innerHTML += `<li>Muuttotappiota ${muutto} hlö vuoden 2017 aikana</li>`;
+    }
+    else{
+      vastaus.innerHTML += `<li>Muuttovoittoa ${muutto} hlö vuoden 2017 aikana</li>`;
+    }
+
+    //vastaus.innerHTML += `<li>Muuttovoitto / tappio: ${muutto} hlö vuoden 2017 aikana</li>`;
     vastaus.innerHTML += `<li>Korkeakoulutettuja ${koulutus}% väestöstä</li>`;
     vastaus.innerHTML += `<li>Työttömiä ${tyottomyys}% työkykyisestä väestöstä</li>`;
     vastaus.innerHTML += `<li>Eläkeläisiä ${elakelaiset}% väestöstä</li>`;

@@ -1,6 +1,8 @@
 'use strict';
 
-const aside = document.querySelector('aside');
+const haku = document.querySelector('#hakupalkki');
+const vastaus = document.querySelector('#vastaus');
+
 let footer = document.querySelector('footer');
 
 function readJSON(path) {
@@ -379,31 +381,31 @@ function valmis(data) {
       }
 
 
-     let poly = L.polygon(
+      let poly = L.polygon(
           v
       )
       poly.addTo(mymap).
-        //  bindPopup(`${data[i].properties.name}`);
+          //  bindPopup(`${data[i].properties.name}`);
           bindPopup(function() {
-          let nimi = data[i].properties.name;
-          const path = 'https://pxnet2.stat.fi:443/PXWeb/api/v1/fi/Kuntien_avainluvut/2018/kuntien_avainluvut_2018_viimeisin.px';
-          let kunta_code;
-          let kunta_id;
-          let asukasluku;
-          let muutto;
-          let vakimuutos;
-          let koulutus;
-          let tyottomyys;
-          let elakelaiset;
-          let huoltosuhde;
+            let nimi = data[i].properties.name;
+            const path = 'https://pxnet2.stat.fi:443/PXWeb/api/v1/fi/Kuntien_avainluvut/2018/kuntien_avainluvut_2018_viimeisin.px';
+            let kunta_code;
+            let kunta_id;
+            let asukasluku;
+            let muutto;
+            let vakimuutos;
+            let koulutus;
+            let tyottomyys;
+            let elakelaiset;
+            let huoltosuhde;
 
-          fetch(path).then(function(vastaus) {
-            return vastaus.json();
-          }).then(function(json) {
-           kunta_id = +(json.variables[0].valueTexts.indexOf(nimi));
-           kunta_code = json.variables[0].values[kunta_id];
-           console.log(kunta_id);
-          }).then(fetch(path, asetukset).then(function(vastaus) {
+            fetch(path).then(function(vastaus) {
+              return vastaus.json();
+            }).then(function(json) {
+              kunta_id = +(json.variables[0].valueTexts.indexOf(nimi));
+              kunta_code = json.variables[0].values[kunta_id];
+              console.log(kunta_id);
+            }).then(fetch(path, asetukset).then(function(vastaus) {
               return vastaus.json();
             }).then(function(json) {
               let i_asukasluku = kunta_id * 7 - 7;
@@ -414,45 +416,45 @@ function valmis(data) {
               let i_elakelaiset = kunta_id * 7 - 2;
               let i_huoltosuhde = kunta_id * 7 - 1;
 
-             asukasluku = json.data[i_asukasluku].values[0];
-             vakimuutos = json.data[i_vakimuutos].values[0];
-             muutto = json.data[i_muutto].values[0];
-             koulutus = json.data[i_koulutus].values[0];
-             tyottomyys = json.data[i_tyottomyys].values[0];
-             elakelaiset = json.data[i_elakelaiset].values[0];
-             huoltosuhde = json.data[i_huoltosuhde].values[0];
+              asukasluku = json.data[i_asukasluku].values[0];
+              vakimuutos = json.data[i_vakimuutos].values[0];
+              muutto = json.data[i_muutto].values[0];
+              koulutus = json.data[i_koulutus].values[0];
+              tyottomyys = json.data[i_tyottomyys].values[0];
+              elakelaiset = json.data[i_elakelaiset].values[0];
+              huoltosuhde = json.data[i_huoltosuhde].values[0];
 
-             console.log('asukasluku: ' + asukasluku);
-             console.log('väkiluvun muutos: ' + vakimuutos);
-             console.log('Muuttovoitto / tappio: ' + muutto);
-             console.log('Korkeakoulutus: ' + koulutus);
-             console.log('Työttömyys: ' + tyottomyys);
-             console.log('Eläkeläiset: ' + elakelaiset);
-             console.log('Huoltosuhde: ' + huoltosuhde);
+              console.log('asukasluku: ' + asukasluku);
+              console.log('väkiluvun muutos: ' + vakimuutos);
+              console.log('Muuttovoitto / tappio: ' + muutto);
+              console.log('Korkeakoulutus: ' + koulutus);
+              console.log('Työttömyys: ' + tyottomyys);
+              console.log('Eläkeläiset: ' + elakelaiset);
+              console.log('Huoltosuhde: ' + huoltosuhde);
 
-            aside.innerHTML = `<h2>${nimi}</h2>`;
-            aside.innerHTML += `<ul>`;
-            aside.innerHTML += `<li>Asukasluku: ${asukasluku}</li>`;
-            aside.innerHTML += `<li>Väkiluvun muutos: ${vakimuutos}</li>`;
-            aside.innerHTML += `<li>Muuttovoitto / tappio: ${muutto} hlö vuoden 2017 aikana</li>`;
-            aside.innerHTML += `<li>Korkeakoulutus: ${koulutus}</li>`;
-            aside.innerHTML += `<li>Työttömyys: ${tyottomyys}</li>`;
-            aside.innerHTML += `<li>Eläkeläiset: ${elakelaiset}</li>`;
-            aside.innerHTML += `<li>Huoltosuhde: ${huoltosuhde}</li>`;
-            aside.innerHTML += `<ul>`;
+              vastaus.innerHTML = `<h2>${nimi}</h2>`;
+              vastaus.innerHTML += `<ul>`;
+              vastaus.innerHTML += `<li>Asukasluku: ${asukasluku}</li>`;
+              vastaus.innerHTML += `<li>Väkiluvun muutos: ${vakimuutos}</li>`;
+              vastaus.innerHTML += `<li>Muuttovoitto / tappio: ${muutto} hlö vuoden 2017 aikana</li>`;
+              vastaus.innerHTML += `<li>Korkeakoulutus: ${koulutus}</li>`;
+              vastaus.innerHTML += `<li>Työttömyys: ${tyottomyys}</li>`;
+              vastaus.innerHTML += `<li>Eläkeläiset: ${elakelaiset}</li>`;
+              vastaus.innerHTML += `<li>Huoltosuhde: ${huoltosuhde}</li>`;
+              vastaus.innerHTML += `<ul>`;
 
             }).catch(function(error) {
               console.log(error);
             })
 
-          .catch(function(error) {
-            console.log(error);
-          }));
+            .catch(function(error) {
+              console.log(error);
+            }));
 
 
 
-          return  nimi;
-        });
+            return  nimi;
+          });
 
 
 
@@ -475,7 +477,7 @@ function valmis(data) {
 
         let poly = L.polygon(
             v
-        )
+        );
         poly.addTo(mymap).
             //  bindPopup(`${data[i].properties.name}`);
             bindPopup(function() {
@@ -527,11 +529,11 @@ function valmis(data) {
                 aside.innerHTML = `<h2>${nimi}</h2>`;
                 aside.innerHTML += `<ul>`;
                 aside.innerHTML += `<li>Väkiluku, 2017: ${asukasluku}</li>`;
-                aside.innerHTML += `<li>Väkiluvun muutos edellisestä vuodesta, %, 2017: ${vakimuutos}</li>`;
+                aside.innerHTML += `<li>Väkiluvun muutos edellisestä vuodesta, 2017: ${vakimuutos}%</li>`;
                 aside.innerHTML += `<li>Muuttovoitto / tappio: ${muutto} hlö vuoden 2017 aikana</li>`;
-                aside.innerHTML += `<li>Korkeakoulutus: ${koulutus}</li>`;
-                aside.innerHTML += `<li>Työttömyys: ${tyottomyys}</li>`;
-                aside.innerHTML += `<li>Eläkeläiset: ${elakelaiset}</li>`;
+                aside.innerHTML += `<li>Korkeakoulutus: ${koulutus}% väestöstä</li>`;
+                aside.innerHTML += `<li>Työttömyys: ${tyottomyys}%</li>`;
+                aside.innerHTML += `<li>Eläkeläiset: ${elakelaiset}%</li>`;
                 aside.innerHTML += `<li>Huoltosuhde: ${huoltosuhde}</li>`;
                 aside.innerHTML += `<ul>`;
 
@@ -575,5 +577,5 @@ function klikkaus(e) {
 
 
 
-    console.log(e.target._popup);
+  console.log(e.target._popup);
 }

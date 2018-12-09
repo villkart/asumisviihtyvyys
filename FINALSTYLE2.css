@@ -1,0 +1,197 @@
+
+* {
+    box-sizing: border-box;
+}
+
+header {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 5% 0;
+}
+section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+
+
+}
+#intro {
+    margin: 0;
+    padding: 3em 0 3em 0;
+
+    background-color: rgba(0, 122, 228, 0.51);
+}
+#intro::before {
+    background-image: url("taustakuva.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+}
+#media {
+    margin: 0;
+    padding: 3em 0 3em 0;
+
+    background-color: rgb(255, 255, 255);
+}
+
+#bottom {
+    margin: 0;
+    padding: 3em 0 3em 0;
+    height: 100%;
+    background-color: rgba(0, 122, 228, 0.51);
+}
+#bottom::before {
+    background-image: url("taustakuva.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 1100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#media article {
+    margin: 0 3em 0 3em;
+}
+h1 {
+    font-family: 'Gabriela';
+    color: black;
+}
+
+
+nav {
+    display: flex;
+    background-color: #333;
+    justify-content: center;
+    align-content: center;
+    font-family: 'Lato', sans-serif;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    margin: 0;
+}
+
+header img {
+    margin: 2em 0 0 0;
+    width: 270px;
+    height: 220px;
+    display: inline-block;
+
+}
+
+li {
+    font-family: 'Acme';
+    font-size: 19px;
+}
+
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+aside {
+   width: 30%;
+   padding: 1% 1% 1% 3%;
+
+}
+aside a, section a {
+    text-decoration: none;
+    color: black;
+}
+aside a:hover, article a:hover {
+    color:  rgba(0, 122, 228, 0.72);
+}
+article {
+    width: 40%;
+    padding: 1% 1% 1% 3%;
+
+}
+#bottom article {
+    width: 60%;
+    padding: 1% 1% 1% 3%;
+
+}
+figure {
+    margin: 0 0 0 0;
+    padding: 1em 0 0 0;
+}
+
+figcaption {
+    font-style: italic;
+}
+#koodi{
+    margin: 2em 0 0 0;
+    height: 650px;
+    overflow-y: scroll;
+}
+
+
+aside ul {
+    border:  rgba(0, 122, 228, 0.72);
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+footer {
+    position: static;
+    background-color: #333333;
+    width: 100%;
+    bottom: 0px;
+    padding: 4px;
+}
+footer p {
+    color: gray;
+    padding-left: 2%;
+}
+@media screen and (max-width: 768px) {
+    aside, nav, main {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    section {
+        flex: 100%;
+    }
+
+    aside {
+        order: 1;
+    }
+}

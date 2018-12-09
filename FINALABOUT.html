@@ -4,7 +4,7 @@
     <title>Asumisviihtyvyys</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="style2.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
@@ -22,46 +22,67 @@
 </header>
 
 <nav>
-    <a href="index.html">Etusivu</a>
+    <a href="index.html">Kuntahaku</a>
     <a href="about.html">Tietoa sivusta</a>
 </nav>
 
 <main>
-    <div class="puu">
-    <aside>
-        <h2>Käytetyt rajapinnat:</h2>
-        <ul>
-            <li><a target="_blank" href="http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/kou/vkour/statfin_vkour_pxt_003_fi.px">Korkekoulutetut %</a></li>
-            <li><a target="_blank" href="">Väkiluku (2017)</a></li>
-            <li><a target="_blank" href="">Väkiluvun muutos (2017)</a></li>
-            <li><a target="_blank" href="">Muuttovoitto / tappio (2017 aikana)</a></li>
-            <li><a target="_blank" href="">Työttömyys</a></li>
-            <li><a target="_blank" href="">Eläkeläiset</a></li>
-            <li><a target="_blank" href="">Huoltosuhde</a></li>
-
-
-        </ul>
-    </aside>
-    </div>
-    <div class="pee">
+    <section id="intro">
         <aside>
-            <h2>Flintstones</h2>
-                    <p><a href="index.html">Asumisviihtyvyys</a> on rakennettu hyödyntäen avointa dataa ja koodia. Sivussa on käytetyt
-                        APIt ovat listattu vasemmalla. Sivun on toteuttanut ryhmätyönä; <strong>Esa Paavola</strong>, <strong>Lauri Lundell</strong> ja <strong>Ville Karttunen</strong>. Sivu on toteutettu
-                        Web-tekniikka ja digitaalisen median periodin aikana. Esa ja Lauri keskittyivät rajapintoihin ja javascriptiin. Ville hoiti ulkoasua. Klikkaa alla olevaa linkkiä ja kokeile! </p>
+            <h2>Käytetyt rajapinnat:</h2>
+            <h3>Tilastokeskus:</h3>
+            <ul>
+                <li><a target="_blank" href="https://pxnet2.stat.fi/PXWeb/pxweb/fi/Kuntien_avainluvut/">Kuntien avainluvut</a></li>
+            </ul>
+            <h3>Kuntakartta.org:</h3>
 
-                <div class="etusivu">
-                <h2><a href="index.html">Asumisviihtyvyys</a></h2>
-                </div>
+            <ul>
+                    <li><a target="_blank" href="http://kuntakartta.org/">Kuntien rajat</a></li>
 
-                <div id="koodi">
-                    <script src="https://gist.github.com/villkart/5e74bb383ae21b927bc03a6aadd215ab.js"></script>
-                </div>
-
+            </ul>
         </aside>
-    </div>
-    <aside>
-    </aside>
+
+
+        <article>
+            <h2>Projekti: Asumisviihtyvyys / Kuntahaku</h2>
+            <p><a href="index.html">Asumisviihtyvyys</a> on rakennettu hyödyntäen avointa dataa ja koodia. Sivussa käytetyt
+                APIt ovat listattu vasemmalla. Sivun on toteuttanut ryhmätyönä; <strong>Esa Paavola</strong>, <strong>Lauri Lundell</strong> ja <strong>Ville Karttunen</strong>. Sivu on toteutettu
+                Web-tekniikka ja digitaalinen media periodin aikana. Esa ja Lauri keskittyivät rajapintoihin ja javascriptiin. Ville työsti ulkoasua. Karttanäkymään pääset klikkaamalla kuntahaku linkkiä. </p>
+            <div class="etusivu">
+                <h2><a href="index.html">Siirry kuntahaun karttanäkymään</a></h2>
+            </div>
+        </article>
+
+    </section>
+
+    <section id="media">
+        <aside>
+            <h3>Työryhmä: Flintstones</h3>
+            <figure>
+                <img style="height: 340px;" src="flint.jpg" alt="ryhmä">
+                <figcaption>Työryhmän jäsenet vasemmalta oikealle: Lauri Lundell, Ville Karttunen ja Esa Paavola.</figcaption>
+            </figure>
+        </aside>
+        <article>
+        <h3>Teaser: Kuntahaku</h3>
+        <video width="640" height="380" controls>
+            <source src="video/kuntahaku.mp4" type="video/mp4">
+        </video>
+        </article>
+
+    </section>
+
+    <section id="bottom">
+        <article>
+            <h3>Lähdekoodi: JavaScript</h3>
+            <div id="koodi">
+                <script src="https://gist.github.com/epaavola/351f6b2f49292c055a083d6320e95f26.js"></script>
+            </div>
+        </article>
+    </section>
+    <footer>
+        <p>Kuntahaku 2018. Tekijät: Flintstones.</p>
+    </footer>
 
 </main>
 
